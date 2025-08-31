@@ -1,8 +1,21 @@
 import { useState } from 'react'
 import Header from './components/Header'
 import { languages } from './languages'
+import { clsx } from 'clsx'
 
 function App() {
+
+  //state trzymający dane dot. tego czy gra jest zakończona
+
+  const [isGameOver, setIsGameOver] = useState(false)
+
+  //state trzymający dane dot. hasła w grze
+
+  const [currentWord, setCurrentWord] = useState('react')
+
+  //utworzenie state przetrzymującego litery podawane przez gracza w trakcie rozgrywki
+  
+  const [guessedLetters, setGuessedLetters] = useState([])
 
   // języki programowania wyświetlane na froncie apliakcji
 
@@ -18,11 +31,9 @@ function App() {
     )
   })
 
-  //state trzymający dane dot. hasła w grze
+  //tworzenie elementu wyświetlającego hasło w grze
 
-  const [currentWord, setCurrentWord] = useState('react')
-
-  const currentWordArr = currentWord.split('') //zmiana state current word na tablicę z elementami w postaci liter hasła
+  const currentWordArr = currentWord.split('') //tworzenie tablicy na podstawie state podanego dla currentWord
 
   const currentWordEl = currentWordArr.map((letter,index) => {
     return(
@@ -37,10 +48,30 @@ function App() {
   const alphabetArr = aplhabet.split('') // utworzenie tablicy ze zmiennej aplhabet
 
   const keyboardEl = alphabetArr.map( letter => {
+
+    const isLetterGuessed = guessedLetters.includes(letter)
+    const isLetterCorrect = isLetterGuessed && currentWord.includes(letter)
+    const isLetterWrong = isLetterGuessed && !currentWord.includes(letter)
+
     return(
-      <button key={letter} className="keyboard-single-button">{letter}</button>
+      <button 
+        onClick={() => selectLetter(letter)} 
+        key={letter} 
+        className={clsx("keyboard-single-button", isLetterCorrect && 'correct', isLetterWrong && 'wrong')} 
+      >
+          {letter}
+      </button>
     )
   })
+
+  //funkcja obsługująca dodawanie litery do tablicy guessedLetters, zabezpieczenie na możliwość pojedynczego podania litery
+
+  function selectLetter(letter){
+    if(!guessedLetters.includes(letter))
+    setGuessedLetters(prevGuessedLetters => {
+      return [...prevGuessedLetters, letter]
+      })
+  }
 
   return (
     <main>
@@ -63,7 +94,7 @@ function App() {
         {keyboardEl}
       </section>
 
-      <button className="new-game-button">NEW GAME</button>
+      {isGameOver && <button className="new-game-button">NEW GAME</button>} 
     </main> 
   )
 }
@@ -79,8 +110,10 @@ A. Layout
   3. Utworzenie sekcji z językami programowania (ZROBIONE)
   4. Utowrzenie sekcji z hasłem do odgadnięcia(na ten moment hasło wprowadzono na sztywno) (ZROBIONE)
   5. Utworzenie klawiatury do podawania liter (ZROBIONE)
-  6. Utworzenie przycisku "New Game" umożliwiającego rozpoczęcie gry
+  6. Utworzenie przycisku "New Game" umożliwiającego rozpoczęcie gry (ZROBIONE)
 
 B. Działanie
-  1.do ustalenia
+  1.kliknięcie wybranej litery z klawiatury zapisuje ją w tablicy do tego stworzonej (ZROBIONE)
+  2.można podać jedną literę z klawiatury tylko raz (ZROBIONE)
+  3.jeżeli litera jest poprawna klawisz zmienia tło na zielone, jeżeli jest błędna to zmienia kolor na czerwony (ZROBIONE)
 */

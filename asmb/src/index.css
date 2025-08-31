@@ -114,6 +114,14 @@ header > p {
     cursor: pointer;
 }
 
+.keyboard-single-button.correct {
+    background: #10A95B;
+}
+
+.keyboard-single-button.wrong {
+    background: #EC5D49;
+}
+
 /*new-game button*/
 
 .new-game-button{
