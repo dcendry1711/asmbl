@@ -1,7 +1,23 @@
 import { useState } from 'react'
 import Header from './components/Header'
+import { languages } from './languages'
 
 function App() {
+
+  // języki programowania wyświetlane na froncie apliakcji
+
+  const langEl = languages.map( langObj => {
+
+    const displayStyle = {
+      background: langObj.backgroundColor,
+      color: langObj.color
+    }
+    
+    return(
+      <span key={langObj.name} style={displayStyle} className="single-language">{langObj.name}</span>
+    )
+  })
+
   return (
     <main>
       <Header />
@@ -9,6 +25,10 @@ function App() {
       <section className="game-status">
         <h2>You win!</h2>
         <p>Well done! 🎉</p>
+      </section>
+
+      <section className="languages">
+        {langEl}
       </section>
 
     </main> 

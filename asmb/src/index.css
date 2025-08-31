@@ -57,3 +57,23 @@ header > p {
 .game-status > p {
     font-size: .8rem;
 }
+
+/*languages section*/
+
+.languages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: .2em;
+    width: 326px;
+    height: 52px;
+    margin: 1em 0;
+}
+
+.single-language {
+    padding: .3em .7em;
+    border-radius: 7px;
+    font-size: .7rem;
+    font-weight: 700;
+}
