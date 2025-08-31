@@ -34,3 +34,26 @@ header > p {
     color: #8E8E8E;
     margin: .5em 2em;
 }
+
+/*game-status section */
+
+.game-status {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0;
+    width: 352px;
+    height: 60px;
+    background: #10A95B;
+    border-radius: 8px;
+    color: #F9F4DA;
+}
+
+.game-status > h2 {
+    font-size: 1.25rem;
+}
+
+.game-status > p {
+    font-size: .8rem;
+}
