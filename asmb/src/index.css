@@ -81,16 +81,23 @@ header > p {
 /*current-word section*/
 
 .current-word {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     margin: 1em 0;
+    gap: .1em;
 }
 
 .single-letter{
-    margin: 0 .1em;
-    padding: .2em .5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #323232;
     color: #F9F4DA;
     border-bottom: 2px solid #F9F4DA;
     text-transform: uppercase;
+    width: 40px;
+    height: 40px;
 }
 
 /*keyboard section*/

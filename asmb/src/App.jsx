@@ -36,8 +36,9 @@ function App() {
   const currentWordArr = currentWord.split('') //tworzenie tablicy na podstawie state podanego dla currentWord
 
   const currentWordEl = currentWordArr.map((letter,index) => {
+
     return(
-      <span key={index} className="single-letter">{letter}</span>
+      <span key={index} className="single-letter">{guessedLetters.includes(letter) ? letter : null}</span>
     )
   })
 
@@ -116,4 +117,5 @@ B. Działanie
   1.kliknięcie wybranej litery z klawiatury zapisuje ją w tablicy do tego stworzonej (ZROBIONE)
   2.można podać jedną literę z klawiatury tylko raz (ZROBIONE)
   3.jeżeli litera jest poprawna klawisz zmienia tło na zielone, jeżeli jest błędna to zmienia kolor na czerwony (ZROBIONE)
+  4. Jeżeli litera jest poprawna to wyświetla się w polu hasła, jeżeli jest błędna w polu hasła nic nie zostaje wyświetlone. (ZROBIONE)
 */
