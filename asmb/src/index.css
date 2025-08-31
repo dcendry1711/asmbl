@@ -77,3 +77,51 @@ header > p {
     font-size: .7rem;
     font-weight: 700;
 }
+
+/*current-word section*/
+
+.current-word {
+    margin: 1em 0;
+}
+
+.single-letter{
+    margin: 0 .1em;
+    padding: .2em .5em;
+    background: #323232;
+    color: #F9F4DA;
+    border-bottom: 2px solid #F9F4DA;
+    text-transform: uppercase;
+}
+
+/*keyboard section*/
+
+.keyboard-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .2em;
+    width: 450px;
+    margin: 1em;
+}
+
+.keyboard-single-button {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #D7D7D7;
+    border-radius: 8px;
+    background: #FCBA29;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+/*new-game button*/
+
+.new-game-button{
+    margin: 1em 0;
+    background: #11B5E5;
+    color: black;
+    border: 1px solid #FFFF;
+    border-radius: 7px;
+    padding: 1em 5em;
+    font-weight: 700;
+}
