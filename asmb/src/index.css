@@ -45,9 +45,17 @@ header > p {
     margin: 1em 0;
     width: 352px;
     height: 60px;
-    background: #10A95B;
     border-radius: 8px;
     color: #F9F4DA;
+    background: #7A5EA7;
+}
+
+.game-status.win {
+    background: #10A95B;
+}
+
+.game-status.lost {
+    background: #BA2A2A;
 }
 
 .game-status > h2 {
@@ -76,6 +84,10 @@ header > p {
     border-radius: 7px;
     font-size: .7rem;
     font-weight: 700;
+}
+
+.single-language.lost {
+    opacity: .1;
 }
 
 /*current-word section*/

@@ -5,10 +5,6 @@ import { clsx } from 'clsx'
 
 function App() {
 
-  //state trzymający dane dot. tego czy gra jest zakończona
-
-  const [isGameOver, setIsGameOver] = useState(false)
-
   //state trzymający dane dot. hasła w grze
 
   const [currentWord, setCurrentWord] = useState('react')
@@ -17,9 +13,15 @@ function App() {
   
   const [guessedLetters, setGuessedLetters] = useState([])
 
+  //zmienna przetrzymująca ilość błędnie podanych liter
+
+  const wrongLetterCount = guessedLetters.filter( letter => !currentWord.includes(letter)).length
+
   // języki programowania wyświetlane na froncie apliakcji
 
-  const langEl = languages.map( langObj => {
+  const langEl = languages.map( (langObj,index) => {
+
+    const langLost = index < wrongLetterCount
 
     const displayStyle = {
       background: langObj.backgroundColor,
@@ -27,7 +29,7 @@ function App() {
     }
 
     return(
-      <span key={langObj.name} style={displayStyle} className="single-language">{langObj.name}</span>
+      <span key={langObj.name} style={displayStyle} className={clsx("single-language", langLost && 'lost')}>{langObj.name}</span>
     )
   })
 
@@ -41,6 +43,27 @@ function App() {
       <span key={index} className="single-letter">{guessedLetters.includes(letter) ? letter : null}</span>
     )
   })
+
+  //funkcja obsługująca dodawanie litery do tablicy guessedLetters, zabezpieczenie na możliwość pojedynczego podania litery
+
+  function selectLetter(letter){
+    if(!guessedLetters.includes(letter))
+    setGuessedLetters(prevGuessedLetters => {
+      return [...prevGuessedLetters, letter]
+      })
+  }
+
+  //zmienna określająca warunek kiedy gra jest przegrana
+
+  const isGameLost = wrongLetterCount === languages.length - 1
+
+  //zmienna określająca kiedy gra jest wygrana
+
+  const isGameWin = !isGameLost && currentWordArr.every( letter => guessedLetters.includes(letter))
+
+  //zmienna określająca warunkowe wyświetlanie przycisku NEW GAME (kiedy jest koniec gry)
+
+  const isGameOver = isGameLost || isGameWin
 
   // ustawienia dot. klawiatury w aplikacji
 
@@ -59,28 +82,50 @@ function App() {
         onClick={() => selectLetter(letter)} 
         key={letter} 
         className={clsx("keyboard-single-button", isLetterCorrect && 'correct', isLetterWrong && 'wrong')} 
+        disabled={isGameOver}
       >
           {letter}
       </button>
     )
   })
 
-  //funkcja obsługująca dodawanie litery do tablicy guessedLetters, zabezpieczenie na możliwość pojedynczego podania litery
+  //funkcja obsługująca rozpoczęcie nowej gry
 
-  function selectLetter(letter){
-    if(!guessedLetters.includes(letter))
-    setGuessedLetters(prevGuessedLetters => {
-      return [...prevGuessedLetters, letter]
-      })
+  function newGame(){
+    setGuessedLetters([])
+  }
+
+  //funkcja obsługująca status gry
+
+  function renderStatusGame(){
+
+    if(!isGameOver){
+      return null
+    }
+
+    if(isGameWin){
+      return(
+        <>
+          <h2>You win!</h2>
+          <p>Well done! 🎉</p>
+        </>
+      )
+    } else {
+      return(
+        <>
+          <h2>Game Over!</h2>
+          <p>You lose! Better start learning Assembly 😭</p>
+        </>
+      )
+    }
   }
 
   return (
     <main>
       <Header />
 
-      <section className="game-status">
-        <h2>You win!</h2>
-        <p>Well done! 🎉</p>
+      <section className={clsx("game-status", isGameWin && 'win', isGameLost && 'lost')}>
+        {renderStatusGame()}
       </section>
 
       <section className="languages">
@@ -95,7 +140,7 @@ function App() {
         {keyboardEl}
       </section>
 
-      {isGameOver && <button className="new-game-button">NEW GAME</button>} 
+      {isGameOver && <button onClick={newGame} className="new-game-button">NEW GAME</button>}
     </main> 
   )
 }
@@ -118,4 +163,15 @@ B. Działanie
   2.można podać jedną literę z klawiatury tylko raz (ZROBIONE)
   3.jeżeli litera jest poprawna klawisz zmienia tło na zielone, jeżeli jest błędna to zmienia kolor na czerwony (ZROBIONE)
   4. Jeżeli litera jest poprawna to wyświetla się w polu hasła, jeżeli jest błędna w polu hasła nic nie zostaje wyświetlone. (ZROBIONE)
+  5. Utworzenie zmiennej przetrzymującej ilość błędnie typowanych liter (ZROBIONE)
+  7. Jeżeli błędnie podano literę to tracony jest kolejny język programowania (ZROBIONE)
+  8. Po podaniu określonej ilości błędnych liter gra zostaje zakończona (GameOver) (ZROBIONE)
+  9. Określenie warunku kiedy gra jest wygrana (ZROBIONE)
+  10. Blokowanie klawiatury w momencie gdy isGameOver === true (ZROBIONE)
+  11. Warunkowe wyświetlanie przycisku NEW GAME (ZROBIONE)
+  12. Możliwość rozpoczęcia nowej gry po naciśnięciu przycisku "NEW GAME" (ZROBIONE)
+  13. W momencie podania błędnej litery oprócz utraty języka, w sekcji statusu gry wyświetlane jest pożegnanie danego języka 
+  14. Jeżeli gra jest wygrana okno statusu gry jest odpowiednio obsłużone
+  15. Jeżeli gra jest przegrana okno statusu gry jest odpowiednio obsłużone
+  16. Słowo do odgadnięcia jest losowane i przy każdej grze jest inne
 */
