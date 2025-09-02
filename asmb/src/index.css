@@ -111,6 +111,7 @@ header > p {
     color: #F9F4DA;
     border-bottom: 2px solid #F9F4DA;
     text-transform: uppercase;
+    font-weight: 700;
     width: 40px;
     height: 40px;
 }

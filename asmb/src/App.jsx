@@ -2,12 +2,15 @@ import { useState } from 'react'
 import Header from './components/Header'
 import { languages } from './languages'
 import { clsx } from 'clsx'
+import { words } from './words'
 
 function App() {
 
   //state trzymający dane dot. hasła w grze
 
-  const [currentWord, setCurrentWord] = useState('react')
+  const [currentWord, setCurrentWord] = useState(randomWord)
+
+  const currentWordArr = currentWord.split('') //tworzenie tablicy na podstawie state podanego dla currentWord
 
   //utworzenie state przetrzymującego litery podawane przez gracza w trakcie rozgrywki
   
@@ -30,17 +33,6 @@ function App() {
 
     return(
       <span key={langObj.name} style={displayStyle} className={clsx("single-language", langLost && 'lost')}>{langObj.name}</span>
-    )
-  })
-
-  //tworzenie elementu wyświetlającego hasło w grze
-
-  const currentWordArr = currentWord.split('') //tworzenie tablicy na podstawie state podanego dla currentWord
-
-  const currentWordEl = currentWordArr.map((letter,index) => {
-
-    return(
-      <span key={index} className="single-letter">{guessedLetters.includes(letter) ? letter : null}</span>
     )
   })
 
@@ -68,6 +60,16 @@ function App() {
   //zmienna określająca czy gra jest w toku i podane są błędne odpowiedzi (wsparcie obsługi sekcji ze statusem gry)
 
   const gameIsRuning = !isGameOver && wrongLetterCount > 0
+
+  //tworzenie elementu wyświetlającego hasło w grze
+
+  const currentWordEl = currentWordArr.map((letter,index) => {
+    return !isGameLost ?
+    (
+      <span key={index} className="single-letter">{guessedLetters.includes(letter) ? letter : null}</span>
+    ) : 
+      <span key={index} style={guessedLetters.includes(letter) ? {color: "#10A95B"}: {color: "#BA2A2A"}} className="single-letter">{letter}</span>
+  })
 
   // ustawienia dot. klawiatury w aplikacji
 
@@ -97,6 +99,7 @@ function App() {
 
   function newGame(){
     setGuessedLetters([])
+    setCurrentWord(randomWord)
   }
 
   //funkcja obsługująca status gry
@@ -122,6 +125,13 @@ function App() {
         </>
       )
     }
+  }
+
+  //funkcja losująca słowo do odgadnięcia podczas gry
+
+  function randomWord(){
+    const randomNumber = Math.floor(Math.random() * words.length)
+    return words[randomNumber]
   }
 
   return (
@@ -177,5 +187,7 @@ B. Działanie
   13. W momencie podania błędnej litery oprócz utraty języka, w sekcji statusu gry wyświetlane jest pożegnanie danego języka (ZROBIONE)
   14. Jeżeli gra jest wygrana okno statusu gry jest odpowiednio obsłużone (ZROBIONE)
   15. Jeżeli gra jest przegrana okno statusu gry jest odpowiednio obsłużone (ZROBIONE)
-  16. Słowo do odgadnięcia jest losowane i przy każdej grze jest inne [W trakcie]
+  16. Słowo do odgadnięcia jest losowane i przy każdej grze jest inne (ZROBIONE)
+  17. Jeżeli gra jest przegrana to wyświetlane jest pełne hasło (ZROBIONE)
+  18. W momencie wyświetlenia pełnego hasła gry po przegranej, litery poprawnie wytypowane zaznaczane są na zielono a błędnie na czerwono (ZROBIONE)
 */
