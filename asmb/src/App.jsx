@@ -65,6 +65,10 @@ function App() {
 
   const isGameOver = isGameLost || isGameWin
 
+  //zmienna określająca czy gra jest w toku i podane są błędne odpowiedzi (wsparcie obsługi sekcji ze statusem gry)
+
+  const gameIsRuning = !isGameOver && wrongLetterCount > 0
+
   // ustawienia dot. klawiatury w aplikacji
 
   const aplhabet = 'abcdefghijklmnopqrstuvwxyz'
@@ -99,8 +103,8 @@ function App() {
 
   function renderStatusGame(){
 
-    if(!isGameOver){
-      return null
+    if(gameIsRuning){
+      return `Bye bye ${languages[wrongLetterCount - 1].name}`
     }
 
     if(isGameWin){
@@ -110,7 +114,7 @@ function App() {
           <p>Well done! 🎉</p>
         </>
       )
-    } else {
+    } else if(isGameLost) {
       return(
         <>
           <h2>Game Over!</h2>
@@ -124,7 +128,7 @@ function App() {
     <main>
       <Header />
 
-      <section className={clsx("game-status", isGameWin && 'win', isGameLost && 'lost')}>
+      <section className={clsx("game-status", isGameWin && 'win', isGameLost && 'lost', gameIsRuning && 'runing')}>
         {renderStatusGame()}
       </section>
 
@@ -170,8 +174,8 @@ B. Działanie
   10. Blokowanie klawiatury w momencie gdy isGameOver === true (ZROBIONE)
   11. Warunkowe wyświetlanie przycisku NEW GAME (ZROBIONE)
   12. Możliwość rozpoczęcia nowej gry po naciśnięciu przycisku "NEW GAME" (ZROBIONE)
-  13. W momencie podania błędnej litery oprócz utraty języka, w sekcji statusu gry wyświetlane jest pożegnanie danego języka 
-  14. Jeżeli gra jest wygrana okno statusu gry jest odpowiednio obsłużone
-  15. Jeżeli gra jest przegrana okno statusu gry jest odpowiednio obsłużone
-  16. Słowo do odgadnięcia jest losowane i przy każdej grze jest inne
+  13. W momencie podania błędnej litery oprócz utraty języka, w sekcji statusu gry wyświetlane jest pożegnanie danego języka (ZROBIONE)
+  14. Jeżeli gra jest wygrana okno statusu gry jest odpowiednio obsłużone (ZROBIONE)
+  15. Jeżeli gra jest przegrana okno statusu gry jest odpowiednio obsłużone (ZROBIONE)
+  16. Słowo do odgadnięcia jest losowane i przy każdej grze jest inne [W trakcie]
 */

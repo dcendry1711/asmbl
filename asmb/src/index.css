@@ -47,7 +47,6 @@ header > p {
     height: 60px;
     border-radius: 8px;
     color: #F9F4DA;
-    background: #7A5EA7;
 }
 
 .game-status.win {
@@ -56,6 +55,10 @@ header > p {
 
 .game-status.lost {
     background: #BA2A2A;
+}
+
+.game-status.runing {
+    background: #7A5EA7;
 }
 
 .game-status > h2 {
